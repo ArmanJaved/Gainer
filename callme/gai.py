@@ -13,8 +13,20 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 import os
-dir_path = os.path.dirname(os.path.realpath(__file__))
-CHROMEDRIVER_PATH = "./chromedriver.exe"
+# dir_path = os.path.dirname(os.path.realpath(__file__))
+# CHROMEDRIVER_PATH = "./chromedriver.exe"
+#
+
+GOOGLE_CHROME_BIN = '/app/.apt/usr/bin/google-chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+
+chrome_options = Options()
+chrome_options.binary_location = GOOGLE_CHROME_BIN
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+
+
+
 
 def removeDoubleSpace(st):
     mystring = str(st).strip()  # the while loop will leave a trailing space,
@@ -30,8 +42,8 @@ def mainCategory(url1, firebase):
         firebase.delete('/Ticker', i)
         pass
 
-
-    browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH)
+    browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+    # browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH)=
     browser.get(str(url1))
     soup = BeautifulSoup((browser.page_source).encode('utf-8'), 'html.parser')
 
