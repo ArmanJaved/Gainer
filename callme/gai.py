@@ -18,7 +18,7 @@ import os
 #
 
 GOOGLE_CHROME_BIN = '/app/.apt/usr/bin/google-chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+CHROMEDRIVER_PATH = './chromedriver.exe'
 
 chrome_options = Options()
 chrome_options.binary_location = GOOGLE_CHROME_BIN
