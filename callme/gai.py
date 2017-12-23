@@ -99,3 +99,5 @@ def main():
     from firebase import firebase
     firebase = firebase.FirebaseApplication('https://stockapp-238b6.firebaseio.com/', None)
     mainCategory('https://finviz.com/screener.ashx?v=110&s=ta_toplosers', firebase)
+
+main()
