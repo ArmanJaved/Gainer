@@ -59,7 +59,7 @@ def mainCategory(url1, firebase):
         if num > 0 and num < 11:
 
             dic = { Ticker ,Company, Price, Change,Volume }
-            abs = Ticker+","+Company+","+Price+","+Change+","+Volume;
+            abs = Ticker+","+Change;
             dic_list.append(dic)
             print(dic)
 
