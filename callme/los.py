@@ -17,7 +17,7 @@ def removeDoubleSpace(st):
     return x1
 def mainCategory(url1, firebase):
     print("Ali ")
-    for i in range(1, 11):
+    for i in range(1, 21):
         firebase.delete('/Losers', i)
         pass
 
@@ -56,7 +56,7 @@ def mainCategory(url1, firebase):
                     Volume = removeDoubleSpace(str(l.text))
                     # print("Volume" , Volume)
                 count = count + 1
-        if num > 0 and num < 11:
+        if num > 0 and num < 21:
 
             dic = { Ticker ,Company, Price, Change,Volume }
             abs = Ticker+","+Change;
