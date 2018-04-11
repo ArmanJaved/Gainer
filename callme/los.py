@@ -16,7 +16,6 @@ def removeDoubleSpace(st):
     x1 = str(re.sub(r"\n", "", str(x)))
     return x1
 def mainCategory(url1, firebase):
-    print("Ali ")
     for i in range(1, 21):
         firebase.delete('/Losers', i)
         pass
@@ -68,8 +67,63 @@ def mainCategory(url1, firebase):
         num = num + 1
     return dic_list
 
+
+
+def mainnext20Category(url1, firebase):
+    for i in range(21, 41):
+        firebase.delete('/Losers', i)
+        pass
+
+
+
+    page =  str(requests.get(str(url1)).content)
+    soup = BeautifulSoup(str(page), 'html.parser')
+
+
+    categoryList = soup.findAll('tr', attrs={'valign': 'top'})
+    # print(len(categoryList))
+    dic_list = []
+    num = 21
+
+    for category in categoryList:
+        lists = category.findAll('td')
+        count = 0
+        # print("Lists" , len(lists))
+        for l in lists:
+
+                # print(num)
+                if count == 1:
+                    Ticker = removeDoubleSpace(str(l.text))
+
+                    # print("Ticker" , Ticker)
+                elif count == 2:
+                    Company = removeDoubleSpace(str(l.text))
+                    # print("Company" , Company)
+                elif count == 8:
+                    Price = removeDoubleSpace(str(l.text))
+                    # print("Price" , Price)
+                elif count == 9:
+                    Change = removeDoubleSpace(str(l.text))
+                    # print("Change" , Change)
+                elif count == 10:
+                    Volume = removeDoubleSpace(str(l.text))
+                    # print("Volume" , Volume)
+                count = count + 1
+        if num > 21 and num < 41:
+
+            dic = { Ticker ,Company, Price, Change,Volume }
+            abs = Ticker+","+Change;
+            dic_list.append(dic)
+            print(dic)
+
+            result = firebase.put('/Losers', num, abs)
+            print(result)
+        num = num + 1
+    return dic_list
+
 # if __name__ == '__main__':
 def main():
     from firebase import firebase
     firebase = firebase.FirebaseApplication('https://stockapp-238b6.firebaseio.com/', None)
     mainCategory('https://finviz.com/screener.ashx?v=110&s=ta_toplosers', firebase)
+    mainnext20Category('https://finviz.com/screener.ashx?v=110&s=ta_toplosers&r=21', firebase)
